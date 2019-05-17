@@ -1,11 +1,10 @@
-vowels_hash = Hash.new
+vowels_hash = {}
 vowels_array = [:a, :e, :i, :o, :u]
-num = 0
 
-(:a..:z).each do |i| num +=1
-  if vowels_array.include? (i)
-    vowels_hash[i] = num
-  end
+(:a..:z).each.with_index do |sym, index|
+  
+  vowels_hash[sym] = index + 1 if vowels_array.include? (sym)
+  
 end
 
 print vowels_hash

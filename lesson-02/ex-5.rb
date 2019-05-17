@@ -5,12 +5,10 @@ date = gets.chomp
 
 date_array = date.split(".")
 
-if date_array[2].to_i % 400 == 0
+if date_array[2].to_i % 400 == 0 || (date_array[2].to_i % 100 != 0 && date_array[2].to_i % 4 == 0)
+
   months [1] = 29
-elsif date_array[2].to_i % 100 != 0
-  if date_array[2].to_i % 4 == 0
-    months [1] = 29
-  end
+
 end
 
 days_gone = 0

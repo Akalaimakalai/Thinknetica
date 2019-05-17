@@ -1,5 +1,5 @@
 array = []
 
-(10..100).each {|i| array.push(i) if i % 5 == 0}
+(10..100).step(5) { |i| array.push(i) }
 
 print array

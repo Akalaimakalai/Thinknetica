@@ -1,4 +1,5 @@
-list = Hash.new
+list = {}
+cost = 0
 total = 0
 
 loop do 
@@ -8,20 +9,24 @@ loop do
     break
   end
 
-  goods = string.split("/")
-  item = Hash.new
+  name, price, quantity = string.split("/")
+  item = {}
 
-  item[goods[1].to_f] = goods[2].to_f
+  item[price.to_f] = quantity.to_f
 
-  list[goods[0]] = item
-
-  cost = goods[1].to_f * goods[2].to_f
-
-  puts "За #{goods[0]} заплатим #{cost} руб."
-
-  total += cost
-
+  list[name] = item
 end
 
-puts "Итого: #{total} руб. за"
-print list
+list.each do |key, val| 
+
+  list[key].each do |price, quantity|
+
+    cost = quantity * price
+
+     puts "#{key}: #{cost} руб." 
+
+    end
+  total += cost
+end
+
+puts "Итого: #{total} руб."
