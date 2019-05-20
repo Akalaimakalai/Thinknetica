@@ -1,20 +1,24 @@
 class Route
-
+  attr_reader :list
+  
   def initialize(first, last)
     @stops =[]
-    @first = first.to_s
-    @last = last.to_s
+    @first = first
+    @last = last
+    list_maker
   end
 
-  def add(name)
-    @stops << name.to_s
+  def add(stop)
+    @stops << stop
+    put_list
   end
 
   def remove(name)
-    if @stops.include?(name.to_s)
-      @stops.delete(name.to_s)
+    if @stops.include?(name)
+      @stops.delete(name)
+      put_list
     else
-      puts "Такой станции в списке нет."
+      puts "Такой станции в списке нет, либо она одна из конечных."
     end
   end
 
@@ -25,9 +29,9 @@ class Route
     @list << @last
   end
 
-  def list
+  def put_list
     list_maker
-    puts @list
+    @list.each { |i| puts i.name }
   end
   
 end

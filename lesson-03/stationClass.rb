@@ -1,5 +1,5 @@
 class Station
-  attr_reader :train_list
+  attr_reader :train_list, :name
 
   def initialize(name)
     @name = name
@@ -16,10 +16,13 @@ class Station
 
   def by_type(type)
     type_list =[]
-    @train_list.each do |i|
-      if @@type == type
-        type_list << i
+
+    @train_list.each do |train|
+      if train.type == type
+        type_list << train
+      end
     end
+    
     type_list
   end
 end
