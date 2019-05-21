@@ -1,6 +1,6 @@
 class Train
   attr_accessor :speed
-  attr_reader :coaches, :current_station, :next_station, :previous_station, :type
+  attr_reader :coaches, :type, :number
 
   def initialize (number, type, coaches)
     @number = number
@@ -13,13 +13,21 @@ class Train
     @speed = 0
   end
 
-  def add_coach?(add)
+  def add_coach
     if @speed != 0
-      puts "Слишком опасно прицеплять/oтцеплять вагоны на ходу"
-    elsif add
+      puts "Слишком опасно прицеплять вагон на ходу"
+    else
       @coaches += 1
+      puts "Вагонов стало #{@coaches}"
+    end
+  end
+
+  def remove_coach
+    if @speed != 0
+      puts "Слишком опасно отцеплять вагон на ходу"
     else
       @coaches -= 1
+      puts "Вагонов стало #{@coaches}"
     end
   end
 
@@ -48,6 +56,18 @@ class Train
     if (i - 2) < 0
       @next_station  = @route[i - 2]
     end
+  end
+
+  def current_station
+    puts "Станция #{@current_station.name}"
+  end
+
+  def next_station
+    puts "Следующая станция #{@next_station.name}"
+  end
+
+  def previous_station
+    puts "Предыдущая станция #{@previous_station.name}"
   end
 
 end
