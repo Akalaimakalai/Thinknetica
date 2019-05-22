@@ -1,11 +1,10 @@
 class Route
-  attr_reader :list
-  
+   
   def initialize(first, last)
     @stations =[]
     @first = first
     @last = last
-    list_maker
+    list
   end
 
   def add(station)
@@ -22,17 +21,11 @@ class Route
     end
   end
 
-  def list_maker
-    @list = [@first, @stations, @last].flatten
+  def list
+    [@first, @stations, @last].flatten
   end
 
   def put_list
-    list_maker
-    @list.each { |station| puts station.name }
-  end
-  
-
-  def test 
-    puts @stations.to_s
+    list.each { |station| puts station.name }
   end
 end
