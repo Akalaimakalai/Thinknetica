@@ -4,7 +4,6 @@ class Route
     @stations =[]
     @first = first
     @last = last
-    list
   end
 
   def add(station)

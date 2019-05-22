@@ -34,40 +34,28 @@ class Train
   def add_route(route)
     @route = route.list
     @route[0].take(self)
-    @way = 1
     current_station
     next_station
   end
 
   def go
-    if @current_station == @route.last
-      @next_station = nil
+    if next_station
+      current_station.send(self)
+      @current_station = next_station
+      current_station.take(self)    
+    else 
       puts "Конечная."
-    else
-      @way = 1
-      current_station
-      next_station
-      @current_station.send(self)
-      @next_station.take(self)
-      current_station
-      next_station
-      previous_station
-    end
+    end    
   end
 
   def back
-    if @current_station == @route.first
-      @next_station = nil
+    if @current_station == @route[0]
       puts "Конечная."
-    else    
-      @way = 2
-      current_station
-      next_station
-      @current_station.send(self)
-      @next_station.take(self)
-      current_station
-      next_station
+    else
       previous_station
+      current_station.send(self)
+      @current_station = previous_station
+      current_station.take(self)
     end
   end
 
@@ -77,33 +65,16 @@ class Train
         @current_station = station
        end
       end
-    puts "Станция #{@current_station.name}"
+      @current_station
   end
 
   def next_station
     i = @route.index(@current_station)
-    if @way == 1 && @current_station == @route.last
-      @next_station = nil
-    elsif  @way == 2 && @current_station == @route.first
-      @next_station = nil
-    elsif @way == 1
-      @next_station = @route[i + 1]
-      puts "Следующая станция #{@next_station.name}"
-    elsif @way == 2
-      @next_station = @route[i - 1]
-      puts "Следующая станция #{@next_station.name}"
-    end      
+    @next_station = @route[i + 1]
   end
 
   def previous_station
     i = @route.index(@current_station)
-    if @way == 1
-      @previous_station = @route[i - 1]
-      puts "Предыдущая станция #{@previous_station.name}"
-    elsif @way == 2
-      @previous_station = @route[i + 1]
-      puts "Предыдущая станция #{@previous_station.name}"
-    end    
+    @previous_station = @route[i - 1]
   end
-
 end
