@@ -1,6 +1,6 @@
 class Train
   attr_accessor :speed
-  attr_reader :coaches, :type, :number
+  attr_reader :coaches, :type, :number, :current_station
 
   def initialize (number, type, coaches)
     @number = number
@@ -32,9 +32,9 @@ class Train
   end
 
   def add_route(route)
-    @route = route.list
-    @route[0].take(self)
-    current_station
+    @route = route
+    @current_station = @route.list[0]
+    @current_station.take(self)
     next_station
   end
 
@@ -49,7 +49,7 @@ class Train
   end
 
   def back
-    if @current_station == @route[0]
+    if @current_station == @route.list[0]
       puts "Конечная."
     else
       previous_station
@@ -59,22 +59,13 @@ class Train
     end
   end
 
-  def current_station
-    @route.each do|station| 
-       if station.train_list.include?(self)
-        @current_station = station
-       end
-      end
-      @current_station
-  end
-
   def next_station
-    i = @route.index(@current_station)
-    @next_station = @route[i + 1]
+    i = @route.list.index(@current_station)
+    @route.list[i + 1]
   end
 
   def previous_station
-    i = @route.index(@current_station)
-    @previous_station = @route[i - 1]
+    i = @route.list.index(@current_station)
+    @route.list[i - 1]
   end
 end
