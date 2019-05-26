@@ -31,9 +31,11 @@ class Train
   def remove_coach(coach)
     if @speed != 0
       puts "Слишком опасно отцеплять вагон на ходу"
-    else
+    elsif @coaches.include?(coach)
       @coaches.delete(coach)
       @coaches.each { |coach| puts coach.number }
+    else
+      puts "В составе нет такого вагона."
     end
   end
 
@@ -42,6 +44,14 @@ class Train
     @current_station = @route.list[0]
     @current_station.take(self)
     next_station
+  end
+
+  def remove_route
+    if @route
+    @route = []
+    else
+      puts "Маршрутный лист не задан."
+    end
   end
 
   def go

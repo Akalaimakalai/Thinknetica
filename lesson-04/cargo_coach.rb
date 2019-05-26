@@ -10,4 +10,8 @@ class CoachC
   def type
     puts TYPE
   end
+
+  def type_check
+    TYPE
+  end
 end

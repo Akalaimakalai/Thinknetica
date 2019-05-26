@@ -1,17 +1,16 @@
 class PassengerTrain < Train
+
+  TYPE = "passenger"
+
   def add_coach(coach)
-    if coach.type == "passenger"
+    if coach.type_check == "passenger"
       super
     else
       puts "Неправильный тип вагона."
     end
   end
-
-  def remove_coach(coach)
-    if coach.type == "passenger"
-      super
-    else
-      puts "Неправильный тип вагона."
-    end
+  
+  def type
+    TYPE
   end
 end

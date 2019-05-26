@@ -19,4 +19,21 @@ ploshad = Station.new("Площадь Ильича")
 marks = Station.new("Maрксистская")
 route = Route.new(novog, marks)
 
+route.add(perovo)
+route.add(shosse)
+route.add(motor)
+route.add(ploshad)
 
+trainC.add_coach(coach01)
+trainC.add_coach(coach02)
+trainC.remove_coach(coach02)
+
+trainC.add_route(route)
+
+trainC.back
+trainC.go
+trainC.go
+trainC.go
+trainC.go
+trainC.go
+trainC.go

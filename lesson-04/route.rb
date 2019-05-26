@@ -24,8 +24,6 @@ class Route
     list.each { |station| puts station.name }
   end
 
-  private
-  #Внутриний метод, для просмотра маршрута есть put_list
   def list
     [@first, @stations, @last].flatten
   end
