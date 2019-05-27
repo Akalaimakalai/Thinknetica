@@ -9,23 +9,22 @@ require_relative 'cargo_coach'
 stations = []
 trains = []
 coaches = []
-routes
+routes = []
 choice = nil
 
 while choice != 0 do
 puts "Чтобы вы хотели сделать?"
 puts "-чтобы создать объект наберите 1"
-puts "-чтобы редактировать объект наберите 2"
-puts "-чтобы управлять объектом наберите 3"
+puts "-чтобы управлять объектом наберите 2"
 puts "-для выхода наберите 0"
 
 choice = gets.chomp.to_i
 
 case choice
 when 1
-  choice-1 = nil
+  choice1 = nil
 
-  while choice-1 != 0 do
+  while choice1 != 0 do
     puts "Какой объект вы бы хотели создать?"
     puts "-станция, наберите 1"
     puts "-поезд, набериете 2"
@@ -35,19 +34,20 @@ when 1
 
     choice1 = gets.chomp.to_i
 
-    case choice-1
+    case choice1
     when 1
       puts "Введите название станции:"
 
-      name = gets.chomp.to_s.capitalize!
+      name = gets.chomp.capitalize.to_s
       station = Station.new(name)
       stations << station
+      j = ""
       stations.each { |i| puts i.name }
 
     when 2
-      choice-1-2 = nil
+      choice12 = nil
 
-      while choice-1-2 != 0 do
+      while choice12 != 0 do
         puts "Поезд какого типа выхотите создать?"
         puts "-пассажирский, наберите 1"
         puts "-грузовой, наберите 2"
@@ -73,16 +73,16 @@ when 1
         end
       end 
     when 3
-      choice-1-3 = nil
-      while choice-1-3 != 0 do
+      choice13 = nil
+      while choice13 != 0 do
         puts "Вагон какого типа вы хотите создать?"
         puts "-пассажирский, наберите 1"
         puts "-грузовой, наберите 2"
         puts "-для возврата в предыдущее меню наберите 0"
 
-        choice-1-3 = gets.chomp.to_i
+        choice13 = gets.chomp.to_i
 
-        case choise-1-3
+        case choise13
         when 1
           coach = CoachP.new
           coaches << coach
@@ -95,44 +95,81 @@ when 1
         end
       end
     when 4
-      puts "Список доступныхстанций:"
+      puts "Список доступных станций:"
       stations.each { |i| puts i.name }
       puts "Введите название начальной станции:"
-      first = gets.chomp.to_s.capitalize!
+      first = gets.chomp.capitalize.to_s
       puts "Введите название конечной станции:"
-      last = gets.chomp.to_s.capitalize!
-      route = Route.new(first, last)
-      routes << route
+      last = gets.chomp.capitalize.to_s
+      map = []
+      stations.each { |i| map << i if i.name == first }
+      stations.each { |i| map << i if i.name == last }
+      route = Route.new(map[0], map[1])
+      puts "Создан маршрут:"
+      route.put_list
+      routes << route      
     end
   end
 when 2
-  puts "Какой объект вы бы хотели отредактировать?"
-  puts "-станция, наберите 1"
-  puts "-поезд, набериете 2"
-  puts "-маршрутный лист, наберите 3"
+  choice2 = nil
 
-  choice2 = gets.chomp.to_i
+  while choice2 != 0 do
+    puts "Каким объектом управлять?"
+    puts "-станция, наберите 1"
+    puts "-поезд, набериете 2"
+    puts "-маршрутный лист, наберите 3"
+    puts "-для возврата в предыдущее меню наберите 0"
 
-  case choice-2
-  when 1
-  when 2
-  when 3
-  when 4
-  end
-when 3
-  puts "Каким объектом управлять?"
-  puts "-станция, наберите 1"
-  puts "-поезд, набериете 2"
-  puts "-вагон, наберите 3"
-  puts "-маршрутный лист, наберите 4"
+    choice2 = gets.chomp.to_i
 
-  choice-3 = gets.chomp.to_i
-    
-  case choice-3
-  when 1
-  when 2
-  when 3
-  when 4
+    case choice2
+    when 1
+      choice21 = nil
+
+      while choice21 != 0 do
+        puts "-посмотреть список станций, наберите 1"
+        puts "-посмотреть список поездов на станции, наберите 2"
+        puts "-принять поезд на станцию, наберите 3"
+        puts "-отправить поезд со станции, наберите 4"
+        puts "-для возврата в предыдущее меню наберите 0"
+
+        choice21 = gets.chomp.to_i
+        
+        case choice21
+        when 1
+          stations.each { |i| puts i.name }
+        when 2
+          puts "Введите название станции:"
+          name = gets.chomp.capitalize.to_s
+          station = nil
+          stations.each { |i| station = i if i.name == name}
+
+          choice212 = nil
+
+          while choice212 != 0 do
+            puts "Какой список будем смотреть?"
+            puts "-общий, наберите 1"
+            puts "-пассажирские поезда, наберите 2"
+            puts "-грузовые поезда, наберите 3"
+            puts "-для возврата в предыдущее меню наберите 0"
+
+            choice212 = gets.chomp.to_i
+            
+            case choice212
+            when 1
+              station.trains
+            when 2
+            when 3
+            end
+          end
+        when 3
+        when 4
+        end
+      end
+    when 2
+    when 3
+    when 4
+    end
   end
 end
 end
