@@ -1,5 +1,5 @@
 class Train
-  attr_reader :coaches, :number, :speed
+  attr_reader :coaches, :number, :speed, :current_station
 
   def initialize (number)
     @number = number
@@ -83,10 +83,6 @@ class Train
       puts "Поезд находится в депо"
     end
   end
-
-  protected 
-  #Внутрении методы, необходимые для работы методов go и back
-  attr_reader :current_station
 
   def next_station
     i = @route.list.index(@current_station)

@@ -1,19 +1,22 @@
 class Route
    
   def initialize(first, last)
-    @stations =[]
+    @map =[]
     @first = first
     @last = last
   end
 
   def add(station)
-    @stations << station
-    put_list
+    if @map.include?(station)
+      puts "Такая станция уже есть." 
+    else
+      @map << station
+    end
   end
 
   def remove(station)
-    if @stations.include?(station)
-      @stations.delete(station)
+    if @map.include?(station)
+      @map.delete(station)
       put_list
     else
       puts "Такой станции в списке нет, либо она одна из конечных."
@@ -22,10 +25,10 @@ class Route
 
   def put_list
     puts "Список станций в маршрутном листе:"
-    list.each { |station| puts station.name }
+    list.each { |i| puts i.name }
   end
 
   def list
-    [@first, @stations, @last].flatten
+    [@first, @map, @last].flatten
   end
 end

@@ -6,16 +6,106 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'cargo_coach'
 
-stations = []
-trains = []
-coaches = []
-routes = []
+@stations = []
+@trains = []
+@coaches = []
+@routes = []
+
+def find_station
+  station = nil
+  while station == nil do
+    puts "Выберите станцию."
+    name = gets.chomp.capitalize.to_s
+    break if name == "0"
+    @stations.each { |i| station = i if i.name == name}
+    puts "Такой станции нет в списке."if station == nil
+  end
+  station
+end
+
+def find_train
+  train = nil
+  while train == nil do
+    puts "Введите номер поезда."
+    number = gets.chomp.to_i
+    break if number == 0
+    @trains.each { |i| train = i if i.number == number}
+    puts "Нет такого поезда." if train == nil
+  end
+  train
+end
+
+def find_coach
+  coach = nil
+  while coach == nil do
+    puts "Введите номер вагона."
+    number = gets.chomp.to_i
+    break if number == 0
+    @coaches.each { |i| coach = i if i.number == number }
+    puts "Нет такого вагона." if coach == nil
+  end
+  coach         
+end
+
+def find_route
+  route = nil
+  while route == nil do
+    puts "С каким № маршрутного листа работаем?"
+    number = gets.chomp.to_i
+    break if number <= 0
+    route = @routes[number - 1]
+    puts "Нет такого маршрутного листа." if route == nil
+  end
+  route
+end
+
+def make_coach(type)
+  puts "Введите номер вагона."
+  number = gets.chomp.to_i
+  coach = type.new(number)
+  @coaches << coach
+end
+
+def make_train(type)
+  puts "Введите номер поезда"
+  number = gets.chomp.to_i
+  train = type.new(number)
+  @trains << train
+end
+
+def stations_list
+  puts "Список доступных станций:"
+  @stations.each { |i| puts i.name }
+end
+
+def trains_list
+  puts "Список доступных поездов:"
+  @trains.each { |i| puts i.number }
+end
+
+def coaches_list
+  puts "Список доступных вагонов:"
+  @coaches.each { |i| print "#{i.number}: "; puts i.type_check }
+end
+
+def coaches_in_train(train)
+  puts "Список вагонов в составе:"
+  train.coaches.each { |i| puts i.number }
+end
+
+def routes_list
+  puts "Список маршрутных листов:"
+  @routes.each { |i| print "№#{@routes.index(i) + 1}:"; i.put_list }
+end
+
+
 choice = nil
 
 while choice != 0 do
 puts "Чтобы вы хотели сделать?"
-puts "-чтобы создать объект наберите 1"
-puts "-чтобы управлять объектом наберите 2"
+puts "-чтобы создать объект, наберите 1"
+puts "-чтобы управлять объектом, наберите 2"
+puts "-посмотреть списки созданых объектов, наберите 3"
 puts "-для выхода наберите 0"
 
 choice = gets.chomp.to_i
@@ -37,13 +127,10 @@ when 1
     case choice1
     when 1
       puts "Введите название станции:"
-
       name = gets.chomp.capitalize.to_s
       station = Station.new(name)
-      stations << station
-      j = ""
-      stations.each { |i| puts i.name }
-
+      @stations << station
+      stations_list
     when 2
       choice12 = nil
 
@@ -52,62 +139,45 @@ when 1
         puts "-пассажирский, наберите 1"
         puts "-грузовой, наберите 2"
         puts "-для возврата в предыдущее меню наберите 0"
-
         choice12 = gets.chomp.to_i
 
         case choice12
         when 1
-          puts "Введите номер поезда"
-
-          number = gets.chomp.to_i
-          train = PassengerTrain.new(number)
-          trains << train
-          trains.each { |i| print "#{i.number}: "; puts i.type }
+          make_train(PassengerTrain)
+          trains_list
         when 2
-          puts "Введите номер поезда"
-
-          number = gets.chomp.to_i
-          train = CargoTrain.new(number)
-          trains << train
-          trains.each { |i| print "#{i.number}: "; puts i.type }
+          make_train(CargoTrain)
+          trains_list
         end
       end 
     when 3
       choice13 = nil
+
       while choice13 != 0 do
         puts "Вагон какого типа вы хотите создать?"
         puts "-пассажирский, наберите 1"
         puts "-грузовой, наберите 2"
         puts "-для возврата в предыдущее меню наберите 0"
-
         choice13 = gets.chomp.to_i
 
-        case choise13
+        case choice13
         when 1
-          coach = CoachP.new
-          coaches << coach
-          coaches.each { |i| print "#{i.number}: "; puts i.type }
-
+          make_coach(CoachP)
+          coaches_list
         when 2
-          coach = CoachC.new
-          coaches << coach
-          coaches.each { |i| print "#{i.number}: "; puts i.type }
+          make_coach(CoachC)
+          coaches_list
         end
       end
     when 4
-      puts "Список доступных станций:"
-      stations.each { |i| puts i.name }
-      puts "Введите название начальной станции:"
-      first = gets.chomp.capitalize.to_s
-      puts "Введите название конечной станции:"
-      last = gets.chomp.capitalize.to_s
-      map = []
-      stations.each { |i| map << i if i.name == first }
-      stations.each { |i| map << i if i.name == last }
-      route = Route.new(map[0], map[1])
-      puts "Создан маршрут:"
+      stations_list
+      puts "Укажите начало маршрута."
+      first = find_station
+      puts "Укажите конец маршрута."
+      last = find_station
+      route = Route.new(first, last)
       route.put_list
-      routes << route      
+      @routes << route      
     end
   end
 when 2
@@ -119,26 +189,14 @@ when 2
     puts "-поезд, набериете 2"
     puts "-маршрутный лист, наберите 3"
     puts "-для возврата в предыдущее меню наберите 0"
-
     choice2 = gets.chomp.to_i
 
     case choice2
     when 1
       choice21 = nil
-      station = nil
-
-      stations.each { |i| puts i.name }
-
-      while station == nil do
-      puts "С какой станцией будем работать?"
-      name = gets.chomp.capitalize.to_s
-      if name == "0"
-        choice21 = 0
-        break
-      end   
-      stations.each { |i| station = i if i.name == name}
-      puts "Такой станции нет в списке."if station == nil
-      end
+      stations_list
+      stop = find_station
+      choice21 = 0 if stop == nil
 
       while choice21 != 0 do
         puts "Что будем делать?"
@@ -146,7 +204,6 @@ when 2
         puts "-принять поезд на станцию, наберите 2"
         puts "-отправить поезд со станции, наберите 3"
         puts "-для возврата в предыдущее меню наберите 0"
-
         choice21 = gets.chomp.to_i
         
         case choice21
@@ -159,7 +216,6 @@ when 2
             puts "-пассажирские поезда, наберите 2"
             puts "-грузовые поезда, наберите 3"
             puts "-для возврата в предыдущее меню наберите 0"
-
             choice211 = gets.chomp.to_i
             
             case choice211
@@ -172,44 +228,20 @@ when 2
             end
           end
         when 2
-          train = nil
-
-          while train == nil do
-          puts "Введите номер поезда."
-          number = gets.chomp.to_i
-          trains.each { |i| train = i if i.number == number}
-          puts "Нет такого поезда." if train == nil
-          end
-
-          station.take(train)
+          trains_list
+          express = find_train
+          stop.take(express) if express
         when 3
-          train = nil
-
-          while train == nil do
-          puts "Введите номер поезда."
-          number = gets.chomp.to_i
-          station.train_list.each { |i| train = i if i.number == number}
-          puts "Такого поезда нет на станции." if train == nil
-          end
-
-          station.send(train)
+          stop.trains
+          express = find_train
+          stop.send(express) if express
         end
       end  
     when 2
       choice22 = nil
-      train = nil
-      trains.each { |i| puts i.number }
-
-      while train == nil do
-        puts "С каким поездом будем работать?"
-        number = gets.chomp.to_i
-        if number == 0 
-          choice22 = 0
-          break
-        end    
-        trains.each { |i| train = i if i.number == number}
-        puts "Такого поезда нет в списке."if train == nil
-      end
+      trains_list
+      train = find_train
+      choice22 = 0 if train == nil
 
       while choice22 != 0 do
         puts "Что будем делать?"
@@ -220,35 +252,22 @@ when 2
         puts "-отправитьс на следующую станцию, наберите 5"
         puts "-вернуться на предыдущую станцию, наберите 6"
         puts "-для возврата в предыдущее меню наберите 0"
+        choice22 = gets.chomp.to_i
 
-        case choise22
+        case choice22
         when 1
-          coach = nil
-
-          while coach == nil do
-          puts "Введите номер вагона."
-          number = gets.chomp.to_i
-          break if number == 0
-          coaches.each { |i| coach = i if i.number == number }
-          puts "Нет такого вагона." if coach == nil
-          end          
-          train.add_coach(coach) if coach
+          coaches_list
+          carriage = find_coach
+          train.add_coach(carriage) if carriage
+          coaches_in_train(train)
         when 2
-          puts "Список вагонов в составе:"
-          train.coaches.each { |i| puts i.number }
-          puts "Какой удалить?"
-          number = gets.chomp.to_i
-          train.remove_coach(number)
+          coaches_in_train(train)
+          carriage = find_coach
+          train.remove_coach(carriage) if carriage
         when 3
-          route = nil
-          routes.each { |i| print "№#{routes.index(i) + 1}:"; i.put_list }
-
-          while route == nil do
-            puts "Какой № маршрутного листа ему задать?"
-            route = gets.chomp.to_i
-            break if route == 0
-            train.add_route(routes[route - 1])
-          end
+          routes_list
+          way = find_route
+          train.add_route(way) if way
         when 4
           train.remove_route
         when 5
@@ -258,7 +277,50 @@ when 2
         end
       end
     when 3
+      choice23 = nil
+      route = find_route
+
+      while choice23 != 0 do
+      puts "Что делаем?"
+      puts "-добавить станцию, наберите 1"
+      puts "-удалить станцию, наберите 2"
+      puts "-для возврата в предыдущее меню наберите 0"
+
+      choice23 = gets.chomp.to_i
+      
+      case choice23
+      when 1
+        stop = find_station
+        route.add(stop)
+        route.put_list
+      when 2
+        route.put_list
+        stop = find_station
+        route.remove(stop)
+      end
+      end
+    end
+  end
+when 3
+  choice 3 = nil
+
+  while choice3 != 0 do
+    puts "-посмотреть список станций, наберите 1"
+    puts "-посмотреть список поездов, наберите 2"
+    puts "-посмотреть список вагонов, наберите 3"
+    puts "-посмотреть список маршрутов, наберите 4"
+    puts "-для возврата в предыдущее меню наберите 0"
+    choice3 = gets.chomp.to_i
+
+    case choice1
+    when 1
+      stations_list
+    when 2
+      trains_list
+    when 3
+      coaches_list
     when 4
+      routes_list
     end
   end
 end
