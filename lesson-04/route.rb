@@ -7,7 +7,7 @@ class Route
   end
 
   def add(station)
-    if @map.include?(station)
+    if self.list.include?(station)
       puts "Такая станция уже есть." 
     else
       @map << station
