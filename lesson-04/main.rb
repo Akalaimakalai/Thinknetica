@@ -220,11 +220,11 @@ when 2
             
             case choice211
             when 1
-              station.trains
+              stop.trains
             when 2
-              station.by_type("passenger")
+              stop.by_type("passenger")
             when 3
-              station.by_type("cargo")
+              stop.by_type("cargo")
             end
           end
         when 2
@@ -277,6 +277,7 @@ when 2
         end
       end
     when 3
+      routes_list
       choice23 = nil
       route = find_route
 
@@ -290,6 +291,7 @@ when 2
       
       case choice23
       when 1
+        stations_list
         stop = find_station
         route.add(stop)
         route.put_list
@@ -302,7 +304,7 @@ when 2
     end
   end
 when 3
-  choice 3 = nil
+  choice3 = nil
 
   while choice3 != 0 do
     puts "-посмотреть список станций, наберите 1"
@@ -312,7 +314,7 @@ when 3
     puts "-для возврата в предыдущее меню наберите 0"
     choice3 = gets.chomp.to_i
 
-    case choice1
+    case choice3
     when 1
       stations_list
     when 2
@@ -325,4 +327,3 @@ when 3
   end
 end
 end
-
