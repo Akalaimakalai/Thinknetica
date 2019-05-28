@@ -7,8 +7,12 @@ class Station
   end
 
   def take(train)
-    @train_list << train
-    puts "Поезд №#{train.number} принят на станцию #{@name}"
+    if @train_list.include?(train)
+      puts "Поезд №#{train.number} уже на станции."
+    else
+      @train_list << train
+      puts "Поезд №#{train.number} принят на станцию #{@name}"
+    end
   end
 
   def send(train)
