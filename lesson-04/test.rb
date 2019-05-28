@@ -28,6 +28,9 @@ trainC.add_coach(coach01)
 trainC.add_coach(coach02)
 trainC.remove_coach(coach02)
 
+trainC.remove_route
+trainC.add_route(route)
+trainC.remove_route
 trainC.add_route(route)
 
 trainC.back

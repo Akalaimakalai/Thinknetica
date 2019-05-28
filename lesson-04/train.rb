@@ -48,7 +48,8 @@ class Train
 
   def remove_route
     if @route
-    @route = []
+      @route = []
+      puts "Маршрутный лист очищен."
     else
       puts "Маршрутный лист не задан."
     end

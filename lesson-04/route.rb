@@ -21,6 +21,7 @@ class Route
   end
 
   def put_list
+    puts "Список станций в маршрутном листе:"
     list.each { |station| puts station.name }
   end
 
