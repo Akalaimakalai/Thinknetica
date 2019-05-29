@@ -25,7 +25,7 @@ class Station
   end
 
   def by_type(type)
-    @type_list = @train_list.select { |i| i.type == type }
+    @type_list = @train_list.select { |i| i.class == type }
     puts "Список поездов типа: '#{type}' на станции #{@name}:"
     @type_list.each { |train| puts train.number }
   end

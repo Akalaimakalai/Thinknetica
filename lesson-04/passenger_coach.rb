@@ -1,17 +1,3 @@
-class CoachP
-  attr_reader :number
-
+class PassangerCoach < Coach
   TYPE = "passenger"
-
-  def initialize(number)
-    @number = number
-  end 
-
-  def type
-    puts TYPE
-  end
-  
-  def type_check
-    TYPE
-  end
 end
