@@ -1,15 +1,19 @@
+require_relative 'company'
+require_relative 'instance_counter'
+
 class Train
   include Company
-  include InstanceCounter
   attr_reader :coaches, :number, :speed, :current_station
   @@all = []
+  @@instances = 0
 
-  def initialize (number)
+  def initialize(number)
     @number = number
     @coaches = []
     @speed = 0
     @@all << self
-  end
+    register_instance
+  end 
 
   def self.find(number)
     @@all.find { |i| i.number == number }
@@ -91,6 +95,7 @@ class Train
       puts "Поезд находится в депо"
     end
   end
+
 
   def next_station
     i = @route.list.index(@current_station)

@@ -1,4 +1,6 @@
 class CargoTrain < Train
+  @instances = 0
+  
   def add_coach(coach)
     if coach.class == CargoCoach
       super
