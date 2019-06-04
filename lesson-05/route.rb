@@ -1,8 +1,12 @@
 class Route
+  include InstanceCounter
+  @instances = 0
+
   def initialize(first, last)
     @map =[]
     @first = first
     @last = last
+    register_instance
   end
 
   def add(station)

@@ -1,5 +1,6 @@
 class Station
   include InstanceCounter
+  @instances = 0
   attr_reader :name, :train_list
   @@all = []
 
@@ -7,6 +8,7 @@ class Station
     @name = name
     @train_list = []
     @@all << self
+    register_instance
   end
 
   def self.all
