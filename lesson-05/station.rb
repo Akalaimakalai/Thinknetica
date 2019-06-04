@@ -1,6 +1,5 @@
 class Station
   include InstanceCounter
-  @instances = 0
   attr_reader :name, :train_list
   @@all = []
 

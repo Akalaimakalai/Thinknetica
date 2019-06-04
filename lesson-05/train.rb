@@ -5,8 +5,8 @@ class Train
   include Company
   include InstanceCounter
   attr_reader :coaches, :number, :speed, :current_station
-  @@all = []
-  @instances = 0
+  attr_accessor :instances 
+  @@all = []  
   
   def initialize(number)
     @number = number
