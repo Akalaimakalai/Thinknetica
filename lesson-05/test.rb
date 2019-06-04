@@ -2,6 +2,7 @@
 require_relative 'train'
 require_relative 'passenger_train'
 require_relative 'cargo_train'
+require_relative 'station'
 
 
 tr1 = PassengerTrain.new(101)
@@ -29,6 +30,12 @@ tr5 = Train.new(567)
 puts PassengerTrain.instances
 puts CargoTrain.instances
 puts Train.instances
+
+
+st1 = Station.new("First")
+st2 = Station.new("Second")
+
+Station.all
 
 =begin
 require_relative 'coach'
