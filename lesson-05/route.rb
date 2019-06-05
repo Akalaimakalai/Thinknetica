@@ -1,6 +1,5 @@
 class Route
   include InstanceCounter
-  @instances = 0
 
   def initialize(first, last)
     @map =[]

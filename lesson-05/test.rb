@@ -5,10 +5,20 @@ require_relative 'cargo_train'
 require_relative 'station'
 
 
+hash = {
+  in: 5,
+  the: 6,
+  wut: 7 
+}
+
+puts hash
+
 tr1 = PassengerTrain.new(101)
 tr2 = CargoTrain.new(201)
 tr3 = Train.new(801)
 
+puts :"101".object_id
+puts :"101".object_id
 
 tr3.add_company("РосЖопДев")
 puts tr3.company_name
@@ -31,6 +41,11 @@ puts PassengerTrain.instances
 puts CargoTrain.instances
 puts Train.instances
 
+tr6 = PassengerTrain.new(764)
+
+puts PassengerTrain.instances
+puts CargoTrain.instances
+puts Train.instances
 
 st1 = Station.new("First")
 st2 = Station.new("Second")

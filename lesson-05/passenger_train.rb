@@ -1,6 +1,4 @@
 class PassengerTrain < Train
-  @instances = 0
-
   def add_coach(coach)
     if coach.class == PassangerCoach
       super
@@ -8,4 +6,4 @@ class PassengerTrain < Train
       puts "Неправильный тип вагона."
     end
   end
- end
+end
