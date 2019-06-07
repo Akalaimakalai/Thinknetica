@@ -1,0 +1,2 @@
+class PassangerCoach < Coach
+end
