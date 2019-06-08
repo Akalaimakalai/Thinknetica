@@ -1,27 +1,20 @@
 require_relative 'company'
+require_relative 'validator'
 
 class Coach
   include Company
-  attr_reader :number, :type
+  include Validator
+  attr_reader :number
   
-  
-  NUMBER_FORMAT = /^\d{6}$/i
+  TYPE = "none"
+  FORMAT = /^\d{6}$/
 
   def initialize(number)
     @number = number
-    validate!
-    @type = self.class
+    validate!(@number)
   end
   
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-
-  protected
-  def validate!
-    raise "Wrong number format!!!" if number !~ NUMBER_FORMAT
+  def type
+    self.class::TYPE
   end
 end

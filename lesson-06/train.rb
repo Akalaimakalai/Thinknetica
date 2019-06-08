@@ -1,17 +1,20 @@
 require_relative 'company'
 require_relative 'instance_counter'
+require_relative 'validator'
 
 class Train
   include Company
   include InstanceCounter
-  attr_reader :coaches, :number, :speed, :current_station
+  include Validator
+  attr_reader :coaches, :number, :speed, :current_station, :route
   @@all = {}
-  NUMBER_FORMAT = /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i
+  FORMAT = /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i
   
   def initialize(number)
     @number = number
-    validate!
+    validate!(@number)
     @coaches = []
+    @route = []
     @speed = 0
     @@all[number.to_s.to_sym] = self
     register_instance
@@ -33,24 +36,21 @@ class Train
     @speed = 0
   end
 
-  def add_coach(coach)
-    if @speed != 0
-      puts "Слишком опасно прицеплять вагон на ходу"
+  def speed?
+    if speed == 0
+      puts "Поезд стоит"
+      true
     else
-      @coaches << coach
-      @coaches.each { |coach| puts coach.number }
+      puts "Поезд движется"
+      false
     end
+
+  def add_coach(coach)
+    @coaches << coach if speed
   end
 
   def remove_coach(coach)
-    if @speed != 0
-      puts "Слишком опасно отцеплять вагон на ходу"
-    elsif @coaches.include?(coach)
-      @coaches.delete(coach)
-      @coaches.each { |coach| puts coach.number }
-    else
-      puts "В составе нет такого вагона."
-    end
+    @coaches.delete(coach) if speed
   end
 
   def add_route(route)
@@ -61,33 +61,20 @@ class Train
   end
 
   def remove_route
-    if @route
-      @route = []
-      puts "Маршрутный лист очищен."
-    else
-      puts "Маршрутный лист не задан."
-    end
+    @route = []
   end
 
   def go
-    if next_station
-      current_station.free(self)
-      @current_station = next_station
-      current_station.take(self)    
-    else 
-      puts "Конечная."
-    end    
+    current_station.free(self)
+    @current_station = next_station
+    current_station.take(self) 
   end
 
   def back
-    if @current_station == @route.list[0]
-      puts "Конечная."
-    else
-      previous_station
-      current_station.free(self)
-      @current_station = previous_station
-      current_station.take(self)
-    end
+    previous_station
+    current_station.free(self)
+    @current_station = previous_station
+    current_station.take(self)
   end
 
   def next_station
@@ -98,17 +85,5 @@ class Train
   def previous_station
     i = @route.list.index(@current_station)
     @route.list[i - 1]
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-  
-  protected
-  def validate!
-    raise "Wrong number format!!!" if number !~ NUMBER_FORMAT
   end
 end

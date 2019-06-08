@@ -1,2 +1,3 @@
-class PassangerCoach < Coach
+class PassengerCoach < Coach
+  TYPE = "пассажирский"
 end

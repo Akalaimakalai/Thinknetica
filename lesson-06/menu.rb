@@ -117,7 +117,7 @@ class Menu
       when 0
         choice = nil
       when 1
-        make_coach(PassangerCoach)
+        make_coach(PassengerCoach)
         coaches_list
       when 2
         make_coach(CargoCoach)
@@ -205,11 +205,13 @@ class Menu
       when 2
         trains_list
         express = find_train
-        stop.take(express) if express
+        return if express == nil
+        stop.take(express)
       when 3
         stop.trains
         express = find_train
-        stop.free(express) if express
+        return if express == nil
+        stop.free(express)
       end
     end  
   end
@@ -240,17 +242,30 @@ class Menu
       when 2
         coaches_in_train(train)
         carriage = find_coach
-        train.remove_coach(carriage) if carriage
+        train.remove_coach(carriage) if train.coaches.include?(carriage)
       when 3
         routes_list
         way = find_route
         train.add_route(way) if way
       when 4
-        train.remove_route
+        if train.route.length >= 2
+           train.remove_route
+          puts "Маршрутный лист очищен."
+        else
+          puts "Маршрутный лист не задан."
+        end
       when 5
-        train.go
+        if train.next_station
+          train.go
+        else
+          puts "Конечная."
+        end
       when 6
-        train.back
+        if train.current_station == train.route.list[0]
+          puts "Конечная."
+        else
+          train.back
+        end
       end
     end
   end
@@ -273,11 +288,14 @@ class Menu
         stations_list
         stop = find_station
         route.add(stop)
+        puts "Такая станция уже есть." if route.add(stop).nil?
         route.put_list
       when 2
         route.put_list
         stop = find_station
         route.remove(stop)
+        puts "Такой станции в списке нет, либо она одна из конечных." if route.remove(stop).nil?
+        route.put_list
       end
     end
   end
@@ -332,22 +350,22 @@ class Menu
     puts "Выберите станцию."
     name = gets.chomp.capitalize.to_s
     return nil if name == "0"
-      station = @stations.find { |i| i.name == name}
+    station = @stations.find { |i| i.name == name}
     return station if station
 
-      puts "Такой станции нет в списке."
-      find_station
+    puts "Такой станции нет в списке."
+    find_station
   end
 
   def find_train
     puts "Введите номер поезда."
-    number = gets.chomp.to_i
+    number = gets.chomp
     return nil if number == 0
-      train = @trains.find { |i| i.number == number}
+    train = @trains.find { |i| i.number == number}
     return train if train
 
-      puts "Нет такого поезда."
-      find_train
+    puts "Нет такого поезда."
+    find_train
   end
 
   def find_coach

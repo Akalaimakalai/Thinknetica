@@ -1,15 +1,17 @@
 require_relative 'instance_counter'
+require_relative 'validator'
 
 class Station
   include InstanceCounter
+  include Validator
   attr_reader :name, :train_list
+  FORMAT = /^( |[а-я]){5,20}$/i
   @@all = []
-  NAME_FORMAT = /^( |[а-я]){5,20}$/i
 
 
   def initialize(name)
     @name = name
-    validate!
+    validate!(@name)
     @train_list = []
     @@all << self
     register_instance
@@ -19,22 +21,24 @@ class Station
     @@all.each { |i| puts i }
   end
 
-  def take(train)
-    if @train_list.include?(train)
-      puts "Поезд №#{train.number} уже на станции."
-    else
-      @train_list << train
-      puts "Поезд №#{train.number} принят на станцию #{@name}"
+  def train_is_here?(train)
+    if train_list.include?(train)
+      puts "Поезд №#{train.number} находится станции #{@name}."
+      true
+    else      
+      puts "На станции #{@name} поезд №#{train.number} не найден."
+      false
     end
   end
 
+  def take(train)
+    @train_list << train unless train_is_here?(train)
+    train_is_here?(train)
+  end
+
   def free(train)
-    if @train_list.include?(train)
-      puts "Поезд №#{train.number} отправлен со станции #{@name}"
-      @train_list.delete(train)
-    else
-      puts "Такого поезда на станции #{@name} нет."
-    end
+    @train_list.delete(train) if train_is_here?(train)
+    train_is_here?(train)
   end
 
   def by_type(type)
@@ -46,17 +50,5 @@ class Station
   def trains
     puts "Список поездов на станции #{@name}:"
     @train_list.each { |train| puts train.number }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-
-  protected
-  def validate!
-    raise "Wrong station's name format!!!" if name !~ NAME_FORMAT
   end
 end
