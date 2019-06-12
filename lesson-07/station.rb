@@ -53,6 +53,6 @@ class Station
   
   def trains
     puts "Список поездов на станции #{@name}:"
-    block { |train| print "№#{train.number} "; print "Тип: #{train.type} "; puts "Кол-во вагонов:#{train.coaches.length}" }
+    each_train { |train| print "№#{train.number} "; print "Тип: #{train.type} "; puts "Кол-во вагонов:#{train.coaches.length}" }
   end
 end
