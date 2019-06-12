@@ -2,9 +2,10 @@ class PassengerTrain < Train
   TYPE = "пассажирский"
   
   def add_coach(coach)
-    if coach.class == PassengerCoach
+    begin
+      raise if coach.class != PassengerCoach
       super
-    else
+    rescue RuntimeError
       puts "Неправильный тип вагона."
     end
   end

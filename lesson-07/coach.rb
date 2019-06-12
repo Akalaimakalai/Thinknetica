@@ -7,11 +7,22 @@ class Coach
   attr_reader :number
   
   TYPE = "none"
-  FORMAT = /\d{6}/
+  FORMAT = /^\d{6}$/
 
-  def initialize(number, additional)
+  def initialize(number, additional = 0)
     @number = number
+    @additional = additional
     validate!(@number)
+  end
+
+  def fill(value = 1)
+    @engaged ||= 0
+    if (@engaged + value) <= @additional
+      @engaged += value
+    else
+      puts "Мало места"
+    end
+    free
   end
   
   def type

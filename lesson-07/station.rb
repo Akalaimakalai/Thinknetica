@@ -21,8 +21,8 @@ class Station
     @@all.each { |i| puts i }
   end
 
-  def block(&block)
-    train_list.each { |train| block.call(train) }
+  def each_train(&block)
+    train_list.each { |train| yield }
   end
 
   def train_is_here?(train)

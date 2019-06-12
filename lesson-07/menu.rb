@@ -118,11 +118,11 @@ class Menu
       when 0
         choice = nil
       when 1
-        puts "Введите номер вагона и колличество пассажирских мест. Пример: 123456, 999"
+        puts "Введите номер вагона, на следующей строке укажите колличество пассажирских мест. Пример: 123456, 999"
         make_coach(PassengerCoach)
         coaches_list
       when 2
-        puts "Введите номер вагона и нормированный объеём груза. Пример: 123456, 83"
+        puts "Введите номер вагона, на следующей строке укажите нормированный объеём груза. Пример: 123456, 83"
         make_coach(CargoCoach)
         coaches_list
       end
@@ -151,7 +151,8 @@ class Menu
       puts "Каким объектом управлять?"
       puts "-станция, наберите 1"
       puts "-поезд, набериете 2"
-      puts "-маршрутный лист, наберите 3"
+      puts "-вагон, наберите 3"
+      puts "-маршрутный лист, наберите 4"
       puts "-для возврата в предыдущее меню наберите 0"
       choice = gets.chomp.to_i
 
@@ -163,6 +164,8 @@ class Menu
       when 2
         menu_work_with_trains
       when 3
+        menu_work_with_coaches
+      when 4
         menu_work_with_routes
       end
     end
@@ -276,6 +279,32 @@ class Menu
     end
   end
 
+  def menu_work_with_coaches
+    coaches_list
+    carriage = find_coach
+    carriage.free
+
+    while carriage do
+      puts "Что будем делать?"
+      puts "-погрузка груза/посадка пассажира, наберите 1"
+      puts "-для возврата в предыдущее меню наберите 0"
+      choice = gets.chomp.to_i
+
+      case choice
+      when 0
+        carriage = nil
+      when 1
+        if carriage.class == PassengerCoach
+          carriage.fill
+        else
+          puts "Какой объём груза?"
+          value = gets.chomp.to_i
+          carriage.fill(value)
+        end
+      end
+    end
+  end
+
   def menu_work_with_routes
     routes_list
     route = find_route
@@ -378,11 +407,11 @@ class Menu
     puts "Введите номер вагона."
     number = gets.chomp
     return nil if number == 0
-      coach = @coaches.find { |i| i.number == number }
+    coach = @coaches.find { |i| i.number == number }
     return coach if coach
 
-      puts "Нет такого вагона." 
-      find_coach  
+    puts "Нет такого вагона." 
+    find_coach  
   end
 
   def find_route
@@ -399,7 +428,7 @@ class Menu
   def coaches_in_train(train)
     puts "Список вагонов в составе:"
     
-    train.block do |i| 
+    train.each_carriage do |i| 
       print "№#{i.number} "
       puts"Тип:#{i.type}"
       if train.class == PassengerTrain

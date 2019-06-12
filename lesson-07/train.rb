@@ -55,8 +55,8 @@ class Train
     @coaches.delete(coach) if speed?
   end
 
-  def block(&block)
-    @coaches.each { |coach| block.call(coach) }
+  def each_carriage(&block)
+    @coaches.each { |coach| yield }
   end
 
   def add_route(route)
