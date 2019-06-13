@@ -12,6 +12,7 @@ class Coach
   def initialize(number, additional = 0)
     @number = number
     @additional = additional
+    @engaged = 0
     validate!(@number)
   end
 

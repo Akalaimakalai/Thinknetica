@@ -246,8 +246,12 @@ class Menu
       when 2
         coaches_list
         carriage = find_coach
-        train.add_coach(carriage) if carriage
-        coaches_in_train(train)
+        begin
+          train.add_coach(carriage) if carriage
+          coaches_in_train(train)
+        rescue RuntimeError
+          puts "Неправильный тип вагона."
+        end
       when 3
         coaches_in_train(train)
         carriage = find_coach
