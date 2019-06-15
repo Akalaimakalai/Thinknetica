@@ -10,9 +10,9 @@ class Station
   FORMAT = /^( |[а-я]){5,20}$/i.freeze
 
   attr_reader :name, :train_list
-
+  # rubocop:disable Style/ClassVars
   @@all = []
-
+  # rubocop:enable Style/ClassVars
   def initialize(name)
     @name = name
     validate!(@name)
@@ -25,10 +25,12 @@ class Station
     @@all.each { |i| puts i }
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def each_train(&block)
     train_list.each { |train| yield(train) }
   end
 
+  # rubocop:enable Lint/UnusedMethodArgument
   def train_is_here?(train)
     if train_list.include?(train)
       puts "Поезд №#{train.number} находится станции #{@name}."

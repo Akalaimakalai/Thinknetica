@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module LookFor
   private
-  
+
   def menu_look_for
     ways = {
       0 => 'main_menu',

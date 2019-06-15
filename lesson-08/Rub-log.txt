@@ -1,0 +1,300 @@
+№Первый запуск
+Inspecting 16 files
+C.CCCCCCCCCWWCCC
+
+Offenses:
+
+menu.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Menu
+^^^^^
+menu.rb:32:3: C: Metrics/MethodLength: Method has too many lines. [14/10]
+  def main_menu ...
+  ^^^^^^^^^^^^^
+Modules/Menu/look_for.rb:1:1: C: [Corrected] Style/FrozenStringLiteralComment: Missing magic comment # frozen_string_literal: true.
+module LookFor
+^
+Modules/Menu/look_for.rb:3:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+Modules/Menu/look_for.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module LookFor
+^^^^^^
+Modules/Menu/look_for.rb:6:3: C: Metrics/MethodLength: Method has too many lines. [15/10]
+  def menu_look_for ...
+  ^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:1:1: C: [Corrected] Style/FrozenStringLiteralComment: Missing magic comment # frozen_string_literal: true.
+module Work
+^
+Modules/Menu/work.rb:3:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+Modules/Menu/work.rb:3:1: C: Metrics/ModuleLength: Module has too many lines. [199/100]
+module Work ...
+^^^^^^^^^^^
+Modules/Menu/work.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Work
+^^^^^^
+Modules/Menu/work.rb:6:3: C: Metrics/MethodLength: Method has too many lines. [16/10]
+  def menu_work_with(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:27:3: C: Metrics/AbcSize: Assignment Branch Condition size for menu_work_with_stations is too high. [15.43/15]
+  def menu_work_with_stations(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:27:3: C: Metrics/MethodLength: Method has too many lines. [17/10]
+  def menu_work_with_stations(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:66:3: C: Metrics/AbcSize: Assignment Branch Condition size for menu_station_lists is too high. [16.16/15]
+  def menu_station_lists ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:66:3: C: Metrics/MethodLength: Method has too many lines. [14/10]
+  def menu_station_lists ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:93:3: C: Metrics/AbcSize: Assignment Branch Condition size for train_redact is too high. [16.16/15]
+  def train_redact(train) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:93:3: C: Metrics/MethodLength: Method has too many lines. [22/10]
+  def train_redact(train) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:208:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def route_redact(route) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:237:81: C: Metrics/LineLength: Line is too long. [92/80]
+    puts 'Такой станции в списке нет, либо она одна из конечных.' if route.remove(stop).nil?
+                                                                                ^^^^^^^^^^^^
+Modules/Menu/create.rb:1:1: C: [Corrected] Style/FrozenStringLiteralComment: Missing magic comment # frozen_string_literal: true.
+module Create
+^
+Modules/Menu/create.rb:3:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+Modules/Menu/create.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Create
+^^^^^^
+Modules/Menu/create.rb:6:3: C: Metrics/MethodLength: Method has too many lines. [16/10]
+  def menu_create(*) ...
+  ^^^^^^^^^^^^^^^^^^
+Modules/Menu/create.rb:40:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def menu_create_trains ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/create.rb:56:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def menu_create_coaches ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/create.rb:72:3: C: Metrics/MethodLength: Method has too many lines. [13/10]
+  def menu_create_routes ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/instance_counter.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module InstanceCounter
+^^^^^^
+Modules/instance_counter.rb:9:3: C: Style/Documentation: Missing top-level module documentation comment.
+  module ClassMethods
+  ^^^^^^
+Modules/instance_counter.rb:22:3: C: Style/Documentation: Missing top-level module documentation comment.
+  module InstanceMethods
+  ^^^^^^
+Modules/company.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Company
+^^^^^^
+Modules/validator.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Validator
+^^^^^^
+Classes/route.rb:7:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Route
+^^^^^
+Classes/coach.rb:6:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Coach
+^^^^^
+Classes/cargo_train.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class CargoTrain < Train
+^^^^^
+Classes/train.rb:7:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Train
+^^^^^
+Classes/train.rb:17:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = {}
+  ^^^^^
+Classes/train.rb:63:20: C: [Corrected] Style/DefWithParentheses: Omit the parentheses in defs when the method doesn't accept any arguments.
+  def each_carriage()
+                   ^
+Classes/train.rb:63:22: W: [Corrected] Lint/UnusedMethodArgument: Unused method argument - block. If it's necessary, use _ or _block as an argument name to indicate that it won't be used. You can also write as each_carriage(*) if you want the method to accept any arguments but don't care about them.
+  def each_carriage(&block)
+                     ^^^^^
+Classes/station.rb:6:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Station
+^^^^^
+Classes/station.rb:14:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = []
+  ^^^^^
+Classes/station.rb:28:17: C: [Corrected] Style/DefWithParentheses: Omit the parentheses in defs when the method doesn't accept any arguments.
+  def each_train()
+                ^
+Classes/station.rb:28:19: W: [Corrected] Lint/UnusedMethodArgument: Unused method argument - block. If it's necessary, use _ or _block as an argument name to indicate that it won't be used. You can also write as each_train(*) if you want the method to accept any arguments but don't care about them.
+  def each_train(&block)
+                  ^^^^^
+Classes/passenger_train.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class PassengerTrain < Train
+^^^^^
+Classes/passenger_coach.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class PassengerCoach < Coach
+^^^^^
+Classes/cargo_coach.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class CargoCoach < Coach
+^^^^^
+
+16 files inspected, 45 offenses detected, 10 offenses corrected
+
+
+
+
+#Второй запуск:
+Inspecting 16 files
+C.CCCCCCCCCWWCCC
+
+Offenses:
+
+menu.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Menu
+^^^^^
+menu.rb:32:3: C: Metrics/MethodLength: Method has too many lines. [14/10]
+  def main_menu ...
+  ^^^^^^^^^^^^^
+Modules/Menu/look_for.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module LookFor
+^^^^^^
+Modules/Menu/look_for.rb:6:3: C: Metrics/MethodLength: Method has too many lines. [15/10]
+  def menu_look_for ...
+  ^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:3:1: C: Metrics/ModuleLength: Module has too many lines. [199/100]
+module Work ...
+^^^^^^^^^^^
+Modules/Menu/work.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Work
+^^^^^^
+Modules/Menu/work.rb:6:3: C: Metrics/MethodLength: Method has too many lines. [16/10]
+  def menu_work_with(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:27:3: C: Metrics/AbcSize: Assignment Branch Condition size for menu_work_with_stations is too high. [15.43/15]
+  def menu_work_with_stations(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:27:3: C: Metrics/MethodLength: Method has too many lines. [17/10]
+  def menu_work_with_stations(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:66:3: C: Metrics/AbcSize: Assignment Branch Condition size for menu_station_lists is too high. [16.16/15]
+  def menu_station_lists ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:66:3: C: Metrics/MethodLength: Method has too many lines. [14/10]
+  def menu_station_lists ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:93:3: C: Metrics/AbcSize: Assignment Branch Condition size for train_redact is too high. [16.16/15]
+  def train_redact(train) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:93:3: C: Metrics/MethodLength: Method has too many lines. [22/10]
+  def train_redact(train) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:208:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def route_redact(route) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:237:81: C: Metrics/LineLength: Line is too long. [92/80]
+    puts 'Такой станции в списке нет, либо она одна из конечных.' if route.remove(stop).nil?
+                                                                                ^^^^^^^^^^^^
+Modules/Menu/create.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Create
+^^^^^^
+Modules/Menu/create.rb:6:3: C: Metrics/MethodLength: Method has too many lines. [16/10]
+  def menu_create(*) ...
+  ^^^^^^^^^^^^^^^^^^
+Modules/Menu/create.rb:40:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def menu_create_trains ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/create.rb:56:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def menu_create_coaches ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/create.rb:72:3: C: Metrics/MethodLength: Method has too many lines. [13/10]
+  def menu_create_routes ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/instance_counter.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module InstanceCounter
+^^^^^^
+Modules/instance_counter.rb:9:3: C: Style/Documentation: Missing top-level module documentation comment.
+  module ClassMethods
+  ^^^^^^
+Modules/instance_counter.rb:22:3: C: Style/Documentation: Missing top-level module documentation comment.
+  module InstanceMethods
+  ^^^^^^
+Modules/company.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Company
+^^^^^^
+Modules/validator.rb:3:1: C: Style/Documentation: Missing top-level module documentation comment.
+module Validator
+^^^^^^
+Classes/route.rb:7:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Route
+^^^^^
+Classes/coach.rb:6:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Coach
+^^^^^
+Classes/cargo_train.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class CargoTrain < Train
+^^^^^
+Classes/train.rb:7:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Train
+^^^^^
+Classes/train.rb:17:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = {}
+  ^^^^^
+Classes/train.rb:63:20: C: Style/DefWithParentheses: Omit the parentheses in defs when the method doesn't accept any arguments.
+  def each_carriage(&block)
+                   ^
+Classes/train.rb:63:22: W: Lint/UnusedMethodArgument: Unused method argument - block. If it's necessary, use _ or _block as an argument name to indicate that it won't be used. You can also write as each_carriage(*) if you want the method to accept any arguments but don't care about them.
+  def each_carriage(&block)
+                     ^^^^^
+Classes/station.rb:6:1: C: Style/Documentation: Missing top-level class documentation comment.
+class Station
+^^^^^
+Classes/station.rb:14:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = []
+  ^^^^^
+Classes/station.rb:28:17: C: Style/DefWithParentheses: Omit the parentheses in defs when the method doesn't accept any arguments.
+  def each_train(&block)
+                ^
+Classes/station.rb:28:19: W: Lint/UnusedMethodArgument: Unused method argument - block. If it's necessary, use _ or _block as an argument name to indicate that it won't be used. You can also write as each_train(*) if you want the method to accept any arguments but don't care about them.
+  def each_train(&block)
+                  ^^^^^
+Classes/passenger_train.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class PassengerTrain < Train
+^^^^^
+Classes/passenger_coach.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class PassengerCoach < Coach
+^^^^^
+Classes/cargo_coach.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class CargoCoach < Coach
+^^^^^
+
+16 files inspected, 39 offenses detected
+
+
+#третий запуск
+Inspecting 16 files
+...C.......WW...
+
+Offenses:
+
+Modules/Menu/work.rb:3:1: C: Metrics/ModuleLength: Module has too many lines. [199/100]
+module Work ...
+^^^^^^^^^^^
+Modules/Menu/work.rb:27:3: C: Metrics/AbcSize: Assignment Branch Condition size for menu_work_with_stations is too high. [15.43/15]
+  def menu_work_with_stations(*) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:66:3: C: Metrics/AbcSize: Assignment Branch Condition size for menu_station_lists is too high. [16.16/15]
+  def menu_station_lists ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+Modules/Menu/work.rb:93:3: C: Metrics/AbcSize: Assignment Branch Condition size for train_redact is too high. [16.16/15]
+  def train_redact(train) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+Classes/train.rb:17:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = {}
+  ^^^^^
+Classes/train.rb:63:22: W: Lint/UnusedMethodArgument: Unused method argument - block. If it's necessary, use _ or _block as an argument name to indicate that it won't be used. You can also write as each_carriage(*) if you want the method to accept any arguments but don't care about them.
+  def each_carriage(&block)
+                     ^^^^^
+Classes/station.rb:14:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = []
+  ^^^^^
+Classes/station.rb:28:19: W: Lint/UnusedMethodArgument: Unused method argument - block. If it's necessary, use _ or _block as an argument name to indicate that it won't be used. You can also write as each_train(*) if you want the method to accept any arguments but don't care about them.
+  def each_train(&block)
+                  ^^^^^
+
+16 files inspected, 8 offenses detected

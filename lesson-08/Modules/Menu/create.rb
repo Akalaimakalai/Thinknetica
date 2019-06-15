@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Create
   private
-  
+
   def menu_create(*)
     ways = {
       0 => 'main_menu',

@@ -13,9 +13,9 @@ class Train
   FORMAT = /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i.freeze
 
   attr_reader :coaches, :number, :speed, :current_station, :route
-
+  # rubocop:disable Style/ClassVars
   @@all = {}
-
+  # rubocop:enable Style/ClassVars
   def initialize(number)
     @number = number
     validate!(@number)
@@ -60,10 +60,12 @@ class Train
     @coaches.delete(coach) if speed?
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def each_carriage(&block)
     @coaches.each { |coach| yield(coach) }
   end
 
+  # rubocop:enable Lint/UnusedMethodArgument
   def add_route(route)
     @route = route
     @current_station = @route.list[0]

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Work
   private
-  
+
   def menu_work_with(*)
     ways = {
       0 => 'main_menu',
