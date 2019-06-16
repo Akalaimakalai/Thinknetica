@@ -8,7 +8,7 @@ class Coach
   include Validator
   attr_reader :number
 
-  TYPE = 'none'
+  TYPE = 'none'.freeze
   FORMAT = /^\d{6}$/.freeze
 
   def initialize(number, additional = 0)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CargoCoach < Coach
-  TYPE = 'грузовой'
+  TYPE = 'грузовой'.freeze
 
   def free
     puts "Свободно #{@additional - @engaged} куб.м."

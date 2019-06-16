@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CargoTrain < Train
-  TYPE = 'грузовой'
+  TYPE = 'грузовой'.freeze
 
   def add_coach(coach)
     raise if coach.class != CargoCoach

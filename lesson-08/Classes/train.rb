@@ -9,7 +9,7 @@ class Train
   include InstanceCounter
   include Validator
 
-  TYPE = 'none'
+  TYPE = 'none'.freeze
   FORMAT = /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i.freeze
 
   attr_reader :coaches, :number, :speed, :current_station, :route

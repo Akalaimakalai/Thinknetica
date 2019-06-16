@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PassengerCoach < Coach
-  TYPE = 'пассажирский'
+  TYPE = 'пассажирский'.freeze
 
   def free
     puts "Осталось #{@additional - @engaged} свободных мест."
