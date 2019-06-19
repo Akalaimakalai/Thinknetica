@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 require_relative '../Modules/company'
-require_relative '../Modules/validator'
+require_relative '../Modules/acсessors'
+require_relative '../Modules/validation'
+# require_relative '../Modules/validator'
 
 class Coach
   include Company
-  include Validator
+  include Acсessors
+  include Validation
+  # include Validator
+
   attr_reader :number
 
   TYPE = 'none'.freeze

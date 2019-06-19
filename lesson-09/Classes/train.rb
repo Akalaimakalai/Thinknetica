@@ -2,12 +2,16 @@
 
 require_relative '../Modules/company'
 require_relative '../Modules/instance_counter'
-require_relative '../Modules/validator'
+require_relative '../Modules/acсessors'
+require_relative '../Modules/validation'
+# require_relative '../Modules/validator'
 
 class Train
   include Company
   include InstanceCounter
-  include Validator
+  include Acсessors
+  include Validation
+  # include Validator
 
   TYPE = 'none'.freeze
   FORMAT = /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i.freeze

@@ -98,6 +98,7 @@ module Create
 
   def make_coach(type)
     input = coach_input(type)
+    return menu_create_coaches if (input[0] == '0') || (input[1] == '0')
     coach = type.new(input[0], input[1])
     puts "Создан вагон за №#{coach.number}:"
     puts "Тип: #{coach.type} "

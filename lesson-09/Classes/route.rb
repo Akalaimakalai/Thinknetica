@@ -2,11 +2,15 @@
 
 require_relative '../Modules/company'
 require_relative '../Modules/instance_counter'
-require_relative '../Modules/validator'
+require_relative '../Modules/acсessors'
+require_relative '../Modules/validation'
+# require_relative '../Modules/validator'
 
 class Route
   include InstanceCounter
-  include Validator
+  include Acсessors
+  include Validation
+  # include Validator
 
   FORMAT = /^( |[а-я]){5,20}$/i.freeze
 

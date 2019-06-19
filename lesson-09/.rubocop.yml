@@ -1,3 +1,10 @@
+AllCops:
+  DisplayCopNames: true
+  StyleGuideCopsOnly: true
+  Exclude:
+    - '**/test.rb'
+    - '**/new.rb'
+
 Rails:
   Enabled: false
 
