@@ -4,23 +4,26 @@ require_relative '../Modules/company'
 require_relative '../Modules/instance_counter'
 require_relative '../Modules/acсessors'
 require_relative '../Modules/validation'
-# require_relative '../Modules/validator'
 
 class Route
   include InstanceCounter
   include Acсessors
   include Validation
-  # include Validator
-
-  FORMAT = /^( |[а-я]){5,20}$/i.freeze
 
   attr_reader :first, :last
+  validate :first_name, :presence
+  validate :first_name, :format, /^( |[а-я]){5,20}$/i
+  validate :first_name, :type, String
+  validate :last_name, :presence
+  validate :last_name, :format, /^( |[а-я]){5,20}$/i
+  validate :last_name, :type, String
 
   def initialize(first, last)
     @first = first
     @last = last
-    validate!(@first.name)
-    validate!(@last.name)
+    @first_name = @first.name
+    @last_name = @last.name
+    validate!
     @map = []
     register_instance
   end

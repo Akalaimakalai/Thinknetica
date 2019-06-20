@@ -3,24 +3,24 @@
 require_relative '../Modules/company'
 require_relative '../Modules/acсessors'
 require_relative '../Modules/validation'
-# require_relative '../Modules/validator'
 
 class Coach
   include Company
   include Acсessors
   include Validation
-  # include Validator
 
   attr_reader :number
+  validate :number, :presence
+  validate :number, :format, /^\d{6}$/
+  validate :number, :type, Integer
 
   TYPE = 'none'.freeze
-  FORMAT = /^\d{6}$/.freeze
 
   def initialize(number, additional = 0)
     @number = number
     @additional = additional
     @engaged = 0
-    validate!(@number)
+    validate!
   end
 
   def fill(value = 1)

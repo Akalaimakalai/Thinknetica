@@ -1,4 +1,4 @@
-require_relative 'validation2'
+require_relative 'validation'
 
 class Foo
   include Validation
@@ -18,7 +18,7 @@ class Foo
   
 end
 
-foo = Foo.new("ololsh")
+foo = Foo.new("olol")
 
 
 

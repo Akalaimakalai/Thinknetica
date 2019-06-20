@@ -4,25 +4,26 @@ require_relative '../Modules/company'
 require_relative '../Modules/instance_counter'
 require_relative '../Modules/acсessors'
 require_relative '../Modules/validation'
-# require_relative '../Modules/validator'
 
 class Train
   include Company
   include InstanceCounter
   include Acсessors
   include Validation
-  # include Validator
 
   TYPE = 'none'.freeze
-  FORMAT = /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i.freeze
 
   attr_reader :coaches, :number, :speed, :current_station, :route
+  validate :number, :presence
+  validate :number, :format, /^(\d|[а-я]){3}(-)?(\d|[а-я]){2}$/i
+  validate :number, :type, String
+
   # rubocop:disable Style/ClassVars
   @@all = {}
   # rubocop:enable Style/ClassVars
   def initialize(number)
     @number = number
-    validate!(@number)
+    validate!
     @coaches = []
     @route = []
     @speed = 0

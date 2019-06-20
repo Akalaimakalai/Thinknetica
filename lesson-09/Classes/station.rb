@@ -4,23 +4,23 @@ require_relative '../Modules/company'
 require_relative '../Modules/instance_counter'
 require_relative '../Modules/acсessors'
 require_relative '../Modules/validation'
-# require_relative '../Modules/validator'
 
 class Station
   include InstanceCounter
   include Acсessors
   include Validation
-  # include Validator
-
-  FORMAT = /^( |[а-я]){5,20}$/i.freeze
 
   attr_reader :name, :train_list
+  validate :name, :presence
+  validate :name, :format, /^( |[а-я]){5,20}$/i
+  validate :name, :type, String
+
   # rubocop:disable Style/ClassVars
   @@all = []
   # rubocop:enable Style/ClassVars
   def initialize(name)
     @name = name
-    validate!(@name)
+    validate!
     @train_list = []
     @@all << self
     register_instance
