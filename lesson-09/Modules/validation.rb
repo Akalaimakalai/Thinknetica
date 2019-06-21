@@ -8,15 +8,13 @@ module Validation
     attr_reader :validations
 
     def validate(name, validate_type, additional = '')
-      @validations ||= {
-        name: [],
-        validate_type: [],
-        additional: []
+      @validations ||= []
+      local_hash = {
+        name: name,
+        validate_type: validate_type,
+        additional: additional
       }
-
-      @validations[:name] << name
-      @validations[:validate_type] << validate_type
-      @validations[:additional] << additional
+      @validations << local_hash
     end
   end
 
@@ -31,6 +29,8 @@ module Validation
     private
 
     def validate!
+      self.class.validations.each { |i| print "#{i}\n"}
+
       define_singleton_method(:presence) do |name, _additional|
         raise 'Имя не может быть пустым' unless (name.strip != '') && (!name.nil?)
       end
@@ -43,13 +43,9 @@ module Validation
         raise 'Имя не соответствует заданному типу' unless name.class == additional
       end
 
-      limit = self.class.validations[:name].length - 1
-      (0..limit).each do |i|
-        name = self.class.validations[:name][i]
-        mean = instance_variable_get("@#{name}".to_sym)
-        validate_type = self.class.validations[:validate_type][i]
-        additional = self.class.validations[:additional][i]
-        send(validate_type, mean, additional)
+      self.class.validations.each do |i|
+        mean = instance_variable_get("@#{i[:name]}".to_sym)
+        send(i[:validate_type], mean, i[:additional])
       end
     end
   end
