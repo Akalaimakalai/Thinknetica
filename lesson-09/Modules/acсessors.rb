@@ -29,19 +29,10 @@ module Acсessors
       var_name = "@#{name}".to_sym
       define_method(name) { instance_variable_get(var_name) }
 
-      var_arr = "@#{name}_arr"
       define_method("#{name}=".to_sym) do |value|
         raise 'Wrong class of argement!!!' if value.class != arg_class
-        if instance_variable_get(var_arr).nil?
-          instance_variable_set(var_arr, [])
-          instance_variable_set(var_name, value)
-        elsif instance_variable_get(var_name) != value
-          instance_variable_get(var_arr) << instance_variable_get(var_name)
-          instance_variable_set(var_name, value)
-        end
+        instance_variable_set(var_name, value)
       end
-
-      define_method("#{name}_history".to_sym) { instance_variable_get(var_arr) }
     end
   end
 

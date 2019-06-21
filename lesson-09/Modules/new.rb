@@ -7,6 +7,7 @@ class Foo
 
   validate :name, :presence
   validate :name, :format, /^( |[a-z]){5,20}$/i
+  validate :name, :type, String
   
   FORMAT = /^( |[a-z]){5,20}$/i
 
@@ -18,14 +19,6 @@ class Foo
   
 end
 
-foo = Foo.new("olol")
+foo = Foo.new("ololosh")
 
-
-
-# puts foo.class.validate(foo.name, :presence)
-# puts foo.class.validate(foo.name, :format)
-# puts foo.class.validate(foo.class, :type)
-
-# #foo.validate!
-
-# puts foo.valid?
+puts foo.valid?

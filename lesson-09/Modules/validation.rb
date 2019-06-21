@@ -5,43 +5,51 @@ module Validation
   end
 
   module ClassMethods
+    attr_reader :validations
+
     def validate(name, validate_type, additional = '')
-      @data_arr ||= []
-      local_arr = []
-      local_arr << name
-      local_arr << validate_type
-      local_arr << additional
-      @data_arr << local_arr
+      @validations ||= {
+        name: [],
+        validate_type: [],
+        additional: []
+      }
+
+      @validations[:name] << name
+      @validations[:validate_type] << validate_type
+      @validations[:additional] << additional
     end
   end
 
   module InstanceMethods
     def valid?
-      true if validate!
-    rescue RuntimeError
-      false
+      validate!
+      true
+     rescue RuntimeError
+       false
     end
 
     private
 
     def validate!
-      list = self.class.instance_variable_get(:@data_arr)
-      a = proc { |name, _additional| true if (name.strip != '') && (!name.nil?) }
-      b = proc { |name, additional| true if name =~ additional }
-      c = proc { |name, additional| true if name.class == additional }
-      hash = {
-        presence: a,
-        format: b,
-        type: c
-      }
+      define_singleton_method(:presence) do |name, _additional|
+        raise 'Имя не может быть пустым' unless (name.strip != '') && (!name.nil?)
+      end
 
-      list.each do |i|
-        name = i[0]
-        validate_type = i[1]
-        additional = i[2]
-        name_mean = instance_variable_get("@#{name}".to_sym)
-        x = hash[validate_type].call(name_mean, additional)
-        raise "Warning!!! #{validate_type.to_s.capitalize} error!" if x.nil?
+      define_singleton_method(:format) do |name, additional|
+        raise 'Имя не соответствует заданному фармату' unless name =~ additional
+      end
+
+      define_singleton_method(:type) do |name, additional|
+        raise 'Имя не соответствует заданному типу' unless name.class == additional
+      end
+
+      limit = self.class.validations[:name].length - 1
+      (0..limit).each do |i|
+        name = self.class.validations[:name][i]
+        mean = instance_variable_get("@#{name}".to_sym)
+        validate_type = self.class.validations[:validate_type][i]
+        additional = self.class.validations[:additional][i]
+        send(validate_type, mean, additional)
       end
     end
   end
