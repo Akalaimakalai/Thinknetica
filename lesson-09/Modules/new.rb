@@ -19,6 +19,6 @@ class Foo
   
 end
 
-foo = Foo.new("olol")
+foo = Foo.new("ololosh")
 
-#puts foo.valid?
+puts foo.valid?

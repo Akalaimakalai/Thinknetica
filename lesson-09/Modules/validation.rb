@@ -22,31 +22,29 @@ module Validation
     def valid?
       validate!
       true
-     rescue RuntimeError
-       false
+    rescue RuntimeError
+      false
     end
 
     private
 
     def validate!
-      self.class.validations.each { |i| print "#{i}\n"}
-
-      define_singleton_method(:presence) do |name, _additional|
-        raise 'Имя не может быть пустым' unless (name.strip != '') && (!name.nil?)
+      self.class.validations.each do |validation|
+        mean = instance_variable_get("@#{validation[:name]}".to_sym)
+        send("validate_#{validation[:validate_type]}", mean, validation[:additional])
       end
+    end
 
-      define_singleton_method(:format) do |name, additional|
-        raise 'Имя не соответствует заданному фармату' unless name =~ additional
-      end
+    def validate_presence(name, _additional)
+      raise 'Имя не может быть пустым' unless (name.strip != '') && (!name.nil?)
+    end
 
-      define_singleton_method(:type) do |name, additional|
-        raise 'Имя не соответствует заданному типу' unless name.class == additional
-      end
+    def validate_format(name, additional)
+      raise 'Имя не соответствует заданному фармату' unless name =~ additional
+    end
 
-      self.class.validations.each do |i|
-        mean = instance_variable_get("@#{i[:name]}".to_sym)
-        send(i[:validate_type], mean, i[:additional])
-      end
+    def validate_type(name, additional)
+      raise 'Имя не соответствует заданному типу' unless name.class == additional
     end
   end
 end

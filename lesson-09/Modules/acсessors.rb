@@ -1,7 +1,6 @@
 module Acсessors
   def self.included(base)
     base.extend ClassMethods
-    base.include InstanceMethods
   end
 
   module ClassMethods
@@ -34,8 +33,5 @@ module Acсessors
         instance_variable_set(var_name, value)
       end
     end
-  end
-
-  module InstanceMethods
   end
 end
